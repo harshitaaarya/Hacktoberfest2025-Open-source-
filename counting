@@ -1,0 +1,45 @@
+public class CountingSortNegative {
+    public static void countingSort(int[] arr) {
+        int n = arr.length;
+
+        // Step 1: Find minimum and maximum element
+        int min = arr[0], max = arr[0];
+        for (int i = 1; i < n; i++) {
+            if (arr[i] < min) min = arr[i];
+            if (arr[i] > max) max = arr[i];
+        }
+
+        // Step 2: Create count array with size = range of numbers
+        int range = max - min + 1;
+        int[] count = new int[range];
+
+        // Step 3: Count frequency of each element
+        for (int i = 0; i < n; i++) {
+            count[arr[i] - min]++;
+        }
+
+        // Step 4: Rebuild the sorted array
+        int index = 0;
+        for (int i = 0; i < range; i++) {
+            while (count[i] > 0) {
+                arr[index++] = i + min;
+                count[i]--;
+            }
+        }
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        int[] arr = { -5, -10, 0, -3, 8, 5, -1, 10 };
+
+        System.out.println("Original array:");
+        for (int num : arr)
+            System.out.print(num + " ");
+
+        countingSort(arr);
+
+        System.out.println("\n\nSorted array:");
+        for (int num : arr)
+            System.out.print(num + " ");
+    }
+}
